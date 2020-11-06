@@ -41,7 +41,8 @@ void positionToCell(const Vector3 pos, int &i_out, int &j_out, float cellWidth, 
 }
 
 float cellValue(int row, int col, bool **freeCells, int nCellsWidth, int nCellsHeight, float mapWidth, float mapHeight, List<Object *> obstacles, List<Defense *> defenses)
-{
+{ 
+    
     return 0; // implemente aqui la funci�n que asigna valores a las celdas
 }
 
@@ -88,8 +89,6 @@ void DEF_LIB_EXPORTED placeDefenses(bool **freeCells, int nCellsWidth, int nCell
 
 
     List<C> Candidates;
-    
-
 
     //Hacemos lista de celdas (candidatos) para colocar el resto de defensas    
     for(int i = 0; i < nCellsHeight; i++)
