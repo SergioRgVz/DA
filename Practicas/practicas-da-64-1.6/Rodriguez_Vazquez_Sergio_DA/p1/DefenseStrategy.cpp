@@ -42,9 +42,7 @@ void positionToCell(const Vector3 pos, int &i_out, int &j_out, float cellWidth, 
 
 float cellValue(int row, int col, int nCellsWidth, int nCellsHeight, float cellWidth, float cellHeight)
 {     
-    // Vector3 center = cellCenterToPosition(nCellsWidth/2, nCellsHeight/2, cellWidth, cellHeight);
 
-    // return _distance(cellCenterToPosition(row, col, cellWidth, cellHeight), center);
     Vector3
     cornerUpLeft = cellCenterToPosition(0, 0, cellWidth, cellHeight),
     cornerUpRight = cellCenterToPosition(0, nCellsWidth, cellWidth, cellHeight),
@@ -52,7 +50,6 @@ float cellValue(int row, int col, int nCellsWidth, int nCellsHeight, float cellW
     cornerDownRight = cellCenterToPosition(nCellsHeight, nCellsWidth, cellWidth, cellHeight);
 
 
-    // float CUpLeftDistance, CUpRightDistance, CDownLeftDistance, CDownRightDistance;
     float
     CUpLeftDistance = _distance(cellCenterToPosition(row, col, cellWidth, cellHeight), cornerUpLeft),
     CUpRightDistance = _distance(cellCenterToPosition(row, col, cellWidth, cellHeight), cornerUpRight),
@@ -61,10 +58,6 @@ float cellValue(int row, int col, int nCellsWidth, int nCellsHeight, float cellW
 
     return std::min({CUpLeftDistance, CUpRightDistance, CDownLeftDistance, CDownRightDistance});
 
-    // return std::max(std::max(CUpLeftDistance, CUpRightDistance), std::max(CDownLeftDistance, CDownRightDistance)); //Pondriamos esto para calcular la distancia a una de las esquinas
-    //Lo que falta en esta funcion es ordenar las distancias a las esquinas y devolver la mayor, en base a eso hay que hacer otra funcion cellValue que ponga puntuacion a las demas defensas
-
-     // implemente aqui la funci�n que asigna valores a las celdas
 }
 
 float cellValue(int row, int col, float cellWidth, float cellHeight, Vector3 position)
@@ -92,7 +85,7 @@ bool factible(std::list<Defense *> defenses, std::list<Object *> obstacles, floa
 
     for(List<Object*>::const_iterator actual = obstacles.begin(); actual != obstacles.end(); ++actual)
     {
-        if(abs(_distance(position, (*actual)->position)) <= radio + (*actual)->radio) return false;
+        if(_distance(position, (*actual)->position) <= radio + (*actual)->radio) return false;
     }
     //Ahora hay que comprobar que la defensa no choque con nada en la posicion elegida y que no se salga del mapa
 
@@ -107,8 +100,7 @@ bool isMinor(const C& A, const C& B)
 }
 
 void DEF_LIB_EXPORTED placeDefenses(bool **freeCells, int nCellsWidth, int nCellsHeight, float mapWidth, float mapHeight, std::list<Object *> obstacles, std::list<Defense *> defenses)
-{ //Freecells: mapa de celdas con centros libres, tener en cuenta si es true; nCellsWidth: numero de celdas en ancho; nCellsHeight: n celdas alto; mapWidth: anchura del mapa entero; mapHeight: altura del mapa entero, obstacles: lista de obstaculos, son vectores basicamente; defenses:
-
+{ 
     float cellWidth = mapWidth / nCellsWidth;
     float cellHeight = mapHeight / nCellsHeight;
     float x, y;
@@ -126,14 +118,8 @@ void DEF_LIB_EXPORTED placeDefenses(bool **freeCells, int nCellsWidth, int nCell
         }
     }
 
-    // for(auto c:Candidates)
-    // {
-    //     std::cout << c.position.x << " " << c.position.y << std::endl;
-    // }
-
     Candidates.sort(isMinor);
     C cfirstpromising;
-
 
     List<Defense*>::iterator currentDefense = defenses.begin();
     while(!Candidates.empty() && ultima_colocada == -1 )
@@ -152,11 +138,6 @@ void DEF_LIB_EXPORTED placeDefenses(bool **freeCells, int nCellsWidth, int nCell
     Candidates = {};
 
     //Hemos colocado la primera defensa
-    
-    // List<C> Candidates;
-
-
-
     for(int i = 0; i < nCellsHeight; i++)
     {
         for(int j = 0; j < nCellsWidth; j++)
