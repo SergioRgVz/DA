@@ -1,1 +1,13 @@
-Escriba aquí su respuesta al ejercicio 4.
+Las características del algoritmo voraz en este caso son:
+
+\begin{itemize}
+    \item Candidatos: representados por una estructura que guarda un Vector3 position de la celda y el valor de la celda (la puntuación).
+    \item Candidatos seleccionados: la lista de candidatos se ordena y seleccionamos los candidatos con la mejor puntuación, en nuestro caso la mejor puntuación para la primera defensa sería la mayor distancia a las esquinas, y la mejor posición para las demás defensas sería la menor distancia a la defensa extractora.
+    \item Solución: en nuestro caso, no tenemos función solución explícita sino que tenemos que comprobar que todas las defensas que tenemos se hayan colocado, en ese caso habríamos llegado a la solución.
+    \item Selección: en nuestro caso la función de selección sería escoger al mejor candidato de la lista ya ordenada
+    \item Función factibilidad: tenemos la función factible que comprueba si una posición es válida o no para una defensa
+    \item Función objetivo: la función objetivo sería la función de cellValue, que puntúa las distintas posiciones según la distancia a las esquinas, o a la defensa extractora
+    \item Objetivo del algoritmo: colocar en las defensas en las mejores posiciones para que aguante el mayor tiempo posible en los distintos niveles
+
+
+\end{itemize}

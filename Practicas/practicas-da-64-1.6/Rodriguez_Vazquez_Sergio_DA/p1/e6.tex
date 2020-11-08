@@ -1,13 +1,33 @@
 \begin{lstlisting}
-// sustituya este codigo por su respuesta
-void placeDefenses(...) {
+//Codigo anterior incluido en el ejercicio 3
 
-    List<Defense*>::iterator currentDefense = defenses.begin();
-    while(currentDefense != defenses.end() && maxAttemps > 0) {
+    Candidates = {};
 
-        (*currentDefense)->position.x = ((int)(_RAND2(nCellsWidth))) * cellWidth + cellWidth * 0.5f;
-        ...
-        ++currentDefense;
+    //Hemos colocado la primera defensa
+    for(int i = 0; i < nCellsHeight; i++)
+    {
+        for(int j = 0; j < nCellsWidth; j++)
+        {
+            C c({cellCenterToPosition(i, j, cellWidth, cellHeight)}, cellValue(i, j, cellWidth, cellHeight, (*currentDefense)->position));
+            Candidates.push_back(c);
+        }
     }
-}
+
+    ++currentDefense;
+    Candidates.sort(isMinor);
+    //Ponemos las demas defensas
+    C cpromising;
+    while(currentDefense != defenses.end() && !Candidates.empty())
+    {
+        cpromising = Candidates.front();
+        Candidates.pop_front();
+        if(factible(defenses, obstacles, mapWidth, mapHeight, cpromising.position, (*currentDefense)->radio, freeCells, cellWidth, cellHeight, ultima_colocada))
+        {
+            (*currentDefense)->position.x = cpromising.position.x;
+            (*currentDefense)->position.y = cpromising.position.y;
+            (*currentDefense)->position.z = 0;
+            ++currentDefense;
+            ultima_colocada++;
+        }
+    }
 \end{lstlisting}

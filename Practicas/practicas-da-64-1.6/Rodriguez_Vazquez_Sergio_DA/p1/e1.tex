@@ -1,6 +1,15 @@
-Escriba aquí su respuesta al ejercicio 1. 
+En mi caso, la función diseñada para darle un valor a los candidatos (las celdas) es la siguiente: 
+\begin{enumerate}
+    \item Creo la lista de Candidatos mediante la función cellValue, esta función devuelve un valor tipo float que se calcula midiendo la distancia que existe entre la posición del candidato y la esquina más cercana a este.
+    \item Una vez tengo la lista de Candidatos completa, la ordeno de mayor a menor, siguiendo esta lógica, las posiciones más cercanas a las esquinas estarían en las primeras posiciones de la lista y lás más lejanas al final de la lista, en concreto, la posición central del mapa estará en la última posición de la lista de Candidatos
+    \item A continuación, vamos recogiendo los úlltimos valores de la lista de Candidatos comprobando que sea una posición factible, cuando lo sea, colocamos la defensa y ya habríamos colocado la primera defensa en el mapa, que en nuestro caso se trata del centro de extracción de minerales.
+\end{enumerate}
 
-% Elimine los símbolos de tanto por ciento para descomentar las siguientes instrucciones e incluir una imagen en su respuesta. La mejor ubicación de la imagen será determinada por el compilador de Latex. No tiene por qué situarse a continuación en el fichero en formato pdf resultante.
+Como podemos observar, mi estrategia colocará la defensa en el centro dando los valores a las celdas desde las esquinas.
+
+
+
+%Elimine los símbolos de tanto por ciento para descomentar las siguientes instrucciones e incluir una imagen en su respuesta. La mejor ubicación de la imagen será determinada por el compilador de Latex. No tiene por qué situarse a continuación en el fichero en formato pdf resultante.
 %\begin{figure}
 %\centering
 %\includegraphics[width=0.7\linewidth]{./defenseValueCellsHead} % no es necesario especificar la extensión del archivo que contiene la imagen

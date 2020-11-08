@@ -1,13 +1,41 @@
 \begin{lstlisting}
-// sustituya este codigo por su respuesta
-void placeDefenses(...) {
+void DEF_LIB_EXPORTED placeDefenses(bool **freeCells, int nCellsWidth, int nCellsHeight, float mapWidth, float mapHeight, std::list<Object *> obstacles, std::list<Defense *> defenses)
+{ 
+
+    float cellWidth = mapWidth / nCellsWidth;
+    float cellHeight = mapHeight / nCellsHeight;
+    float x, y;
+    int ultima_colocada = -1;
+    List<C> Candidates;
+
+    //Hacemos lista de celdas (candidatos) para colocar el resto de defensas    
+    for(int i = 0; i < nCellsHeight; i++)
+    {
+        for(int j = 0; j < nCellsWidth; j++)
+        {
+            C c({cellCenterToPosition(i, j, cellWidth, cellHeight)}, 
+            cellValue(i, j, nCellsWidth, nCellsHeight, cellWidth, cellHeight));
+            Candidates.push_back(c);
+        }
+    }
+
+    Candidates.sort(isMinor);
+    C cfirstpromising;
 
     List<Defense*>::iterator currentDefense = defenses.begin();
-    while(currentDefense != defenses.end() && maxAttemps > 0) {
+    while(!Candidates.empty() && ultima_colocada == -1 )
+    { 
+        cfirstpromising = Candidates.back();
+        Candidates.pop_back();
+        if(factible(defenses, obstacles, mapWidth, mapHeight, 
+        cfirstpromising.position, (*currentDefense)->radio, freeCells,
+        cellWidth, cellHeight, -1))
+        {
+            (*currentDefense)->position.x = cfirstpromising.position.x;
+            (*currentDefense)->position.y = cfirstpromising.position.y;
+            (*currentDefense)->position.z = 0;
+            ultima_colocada++;
 
-        (*currentDefense)->position.x = ((int)(_RAND2(nCellsWidth))) * cellWidth + cellWidth * 0.5f;
-        ...
-        ++currentDefense;
+        }
     }
-}
 \end{lstlisting}

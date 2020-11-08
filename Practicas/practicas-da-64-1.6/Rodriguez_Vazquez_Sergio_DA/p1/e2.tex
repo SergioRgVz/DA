@@ -1,1 +1,37 @@
-Escriba aquí su respuesta al ejercicio 2.
+La función de factibilidad comprueba si una posición está ocupada por otro obstaculo u otra defensa para conocer si es factible poner en la posición elegida una nueva defensa. 
+La función de factibilidad recibirá los siguientes parámetros:
+\begin{itemize}
+    \item La lista de defensas completa
+    \item La lista de obstáculos completa
+    \item La anchura del mapa
+    \item La altura del mapa
+    \item La posición elegida para comprobar si se puede poner la defensa o no
+    \item El radio de la defensa que se desea colocar
+    \item La matriz de freeCells, la cual es una matriz booleana que devuelve true si el centro de la celda no está ocupado y false en el caso contrario
+    \item La anchura de una celda
+    \item La altura de una celda
+    \item La última defensa colocada en el mapa, esto nos servirá después para que el algoritmo sea más eficiente y no tengamos que recorrer la lista de defensas entera, sólo lo justo y necesario
+\end{itemize}
+Pues bien, en este caso, la función factible deberá comprobar cuatro casos distintos:
+
+\begin{enumerate}
+    \item Para empezar, debemos comprobar si la posición elegida está dentro del mapa, esto quiere decir que la defensa no puede sobresalir por el borde del mapa, esto lo podemos comprobar de forma sencilla con el siguiente condicional, comprobamos si la posicion.x + radio es mayor que la anchura del mapa, si la posicion.y + radio es mayor que la altura del mapa, si la posicion.x - radio es menor que 0 y por último si la posicion.y - radio es menor que 0.
+    \begin{lstlisting}
+if (position.x + radio > mapWidth || position.y + radio > mapHeight ||
+position.x - radio < 0 || position.y - radio < 0)
+    \end{lstlisting}
+    \item Luego comprobamos que la posición elegida en la matriz freeCells devuelve true, es decir, el centro de la celda elegida está libre
+    \begin{lstlisting}
+if (!freeCells[candidaterow, candidatecol]) 
+    \end{lstlisting}
+    \item En tercer lugar, recorremos la lista de defensas (sólo las que estén ya colocadas), para ello comprobamos que la distancia entre el centro de la celda elegida y el centro de la defensa que estamos observando en el bucle sea menor o igual que la suma de sus radios.
+    \begin{lstlisting}
+if(_distance(position, (*defactual)->position) <= radio + 
+(*defactual)->radio)
+    \end{lstlisting}
+    \item En último lugar, recorremos la lista de obstáculos para ver si choca con algún obstáculo en la posición elegida, es una comprobación análoga a la de las defensas.
+    \begin{lstlisting}
+if(_distance(position, (*actual)->position) <= radio + (*actual)->radio)
+
+    \end{lstlisting}
+\end{enumerate}
