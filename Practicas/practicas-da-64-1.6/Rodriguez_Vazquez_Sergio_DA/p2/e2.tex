@@ -1,1 +1,31 @@
-Escriba aquí su respuesta al ejercicio 2.
+Utilizo primero una estructura creada por mí que me relaciona una defensa con el coste asignado previamente por mi estrategia. Esta estructura se llama DefenseCost, al comenzar el problema, recorro la lista de defensas y guardo en un vector de la STL todos los objetos de tipo DefenseCost para tener así todos los correspondientes costes.
+
+\begin{lstlisting}
+//Estructura DefenseCost
+struct DefenseCost
+{
+    DefenseCost();
+    DefenseCost(Defense *defense, float cost): defense_(defense), cost_(cost){}
+    Defense *defense_;
+    float cost_;
+};
+
+    //Bucle para rellenar los "candidatos" del problema
+    //Quitamos la primera defensa porque no la tenemos que tener en cuenta
+ 
+    selectedIDs.push_back((*it)->id);
+    ases = ases - (*it)->cost;
+    it++;
+
+
+    //Recorremos la lista de defensas que nos dan y vamos creando la lista de candidatos para aplicar el algoritmo de la mochila
+    while(it != defenses.end())
+    {
+        DefenseCost defenseiterated((*it), calculatecost((*it)));
+        defensecosts.push_back(defenseiterated);
+        ++it;
+    }
+
+
+
+\end{lstlisting}

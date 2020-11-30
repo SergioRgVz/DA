@@ -1,6 +1,30 @@
-Sólo nos haría falta aplicar el algoritmo de la mochila de la siguiente forma:
-\begin{lstlisting}
-// sustituya este codigo por su respuesta
+// ###### Config options ################
+
+
+// #######################################
+
+#define BUILDING_DEF_STRATEGY_LIB 1
+
+#include "../simulador/Asedio.h"
+#include "../simulador/Defense.h"
+
+using namespace Asedio;
+
+struct DefenseCost
+{
+    DefenseCost();
+    DefenseCost(Defense *defense, float cost): defense_(defense), cost_(cost){}
+    Defense *defense_;
+    float cost_;
+};
+
+float calculatecost(Defense *defense)
+{
+    return ((defense->damage * defense->attacksPerSecond) + defense->health + defense->range );
+    // return defense->health;
+}
+
+
 void DEF_LIB_EXPORTED selectDefenses(std::list<Defense*> defenses, unsigned int ases, std::list<int> &selectedIDs, float mapWidth, float mapHeight, std::list<Object*> obstacles) 
 {
     std::vector<DefenseCost> defensecosts;
@@ -45,9 +69,13 @@ void DEF_LIB_EXPORTED selectDefenses(std::list<Defense*> defenses, unsigned int 
         }
     }
 
+    // std::list<Defense*>::iterator it = defenses.begin();
+
     i = defensecosts.size() - 1;
     j = ases;
 
+    // while(F[1][j] != 0)
+    // {
         while(i > 0)
         {
             if(F[i][j] != F[i - 1][j])
@@ -57,6 +85,6 @@ void DEF_LIB_EXPORTED selectDefenses(std::list<Defense*> defenses, unsigned int 
             }
             --i;
         }
+    // }
 
 }
-\end{lstlisting}

@@ -1,15 +1,15 @@
-\begin{lstlisting}
-// sustituya este codigo por su respuesta
-void selectDefenses(...) {
+Citado anteriormente en el ejercicio 3, esta sería la parte correspondiente del código que recupera la solución del problema una vez el algoritmo de la mochila ya ha creado la matriz de subproblemas resueltos:
 
-    unsigned int cost = 0;
-    std::list<Defense*>::iterator it = defenses.begin();
-    while(it != defenses.end()) {
-        if(cost + (*it)->cost <= ases) {
-            selectedIDs.push_back((*it)->id);
-            cost += (*it)->cost;
+\begin{lstlisting}
+    i = defensecosts.size() - 1;
+    j = ases;
+        while(i > 0)
+        {
+            if(F[i][j] != F[i - 1][j])
+            {
+                selectedIDs.push_back(defensecosts[i].defense_->id);
+                j -= defensecosts[i].defense_->cost;
+            }
+            --i;
         }
-        ++it;
-    }
-}
 \end{lstlisting}
