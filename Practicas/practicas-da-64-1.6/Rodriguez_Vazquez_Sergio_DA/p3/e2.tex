@@ -1,1 +1,66 @@
-Escriba aquí su respuesta al ejercicio 2.
+\begin{lstlisting}
+
+std::vector<C> merge_sort(std::vector<C> &v, int i, int j)
+{
+    int n = j - i ; 
+    int k;
+    if(n <= v.size())
+    {
+        Insertionsort(v, i, j);
+    }
+    else
+    {
+        k = i - 1 + n/2;
+        merge_sort(v, i, k);
+        merge_sort(v, k + 1, j);
+        merge(v, i, k, j);
+    }
+    return v;
+}
+
+void Insertionsort(std::vector<C> &v, int i, int j)
+{
+    int key;
+    for(i; i < j; i++)
+    {
+        key = v[i].value;
+        j = i - 1;
+
+        while(j >= 0 && v[j] > key)
+        {
+            v[j + 1] = v[j];
+            j = j - 1;
+        }
+        v[j + 1].value = key;
+    }
+    
+}
+
+void merge(std::vector<C> &v, int i, int k, int j)
+{
+    int n, p, q;
+    n = j - i + 1;
+    p = i;
+    q = k + 1;
+    std::vector<C> w(n);
+    for(int l = 0; l < n; l++)
+    {
+        if(p <= k && (q > j || v[p] <= v[q]))
+        {
+            w[l] = v[p];
+            p++;
+        }
+        else
+        {
+            w[l] = v[q];
+            q++;
+        }
+    }
+    
+    for(int l = 0; l < n; l++)
+    {
+        v[i - 1 + l] = w[l];
+    }
+}
+
+\end{lstlisting}

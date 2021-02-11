@@ -1,1 +1,35 @@
-Escriba aquí su respuesta al ejercicio 3.
+\begin{lstlisting}
+
+std::vector<C> quicksort(std::vector<C> &v, int low, int high)
+{
+    if(low < high)
+    {
+        //pivot es el indice de particion
+        int pivot = partition(v, low, high);
+
+        //Separadamente ordenar elementos antes de la particion y despues de la particion
+        quicksort(v, low, pivot - 1);
+        quicksort(v, pivot + 1, high);
+    }
+    return v;
+}
+
+int partition(std::vector<C> &v, int low, int high)
+{
+    C pivot = v[high];
+    int i = (low - 1);
+
+    for(int j = low; j <= high - 1; j++)
+    {
+        if(v[j] <= pivot)
+        {
+            i++;
+            std::swap(v[i], v[j]);
+        }
+    }
+    std::swap(v[i + 1], v[high]);
+    return (i + 1);
+}
+
+
+\end{lstlisting}
