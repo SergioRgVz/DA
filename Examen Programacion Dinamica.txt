@@ -1,0 +1,30 @@
+Red_carreteras: P x n -> R
+desde i <- 1 hasta n
+    desde j <- 1 hasta n
+        si P[i][j] = 0 O P[i][j] = 1
+            Adyacencia[i][j] <- T
+            C[i][j] = infinito
+        sino si P[i][j] = 2  O  P[i][j] = infinito
+            Adyacencia[i][j] <- F
+            C[i][j] = -1
+
+C <- Warshall(Adyacencia, n)
+
+desde i <- 1 hasta n
+    desde j <- 1 hasta n
+        si C[i][j] = -1 
+            R[i][j] = autopistas_recorridas(C, i, j, 0)
+
+autopistas_recorridas: C x o x d x n-> n
+k <- C[o,d]
+
+si k != -1
+   n <- n + 1
+   S <- autopistas_recorridas(C, o, k, n)
+   S <- S + [k]
+   S <- S + autopistas_recorridas(C, k, d, n)
+
+
+El Ministerio de Fomento desea realizar una inversión en la red de carreteras nacionales. Para detectar deficiencias en la red, desea realizar un informe en el que se determine el número de autopistas de peaje que hay que atravesar como mínimo para viajar entre cada par de capitales de provincia. No importa si el recorrido por autovía o carretera convencional supone recorrer una mayor distancia con objeto de evitar una autopista de peaje.
+
+Para la realización de este informe el Ministerio dispone de un grafo que representa la red de carreteras, donde los nodos representan las capitales de provincia y las aristas el tipo de vía a través del cual éstas se conectan de forma directa (0: carretera convencional, 1: autovía, 2: autopista de peaje). Por ejemplo, el siguiente grafo representa que las ciudades de Soria y Zaragoza se encuentran conectadas por carretera convencional, mientras que esta última se encuentra conectada con Teruel por autovía.
